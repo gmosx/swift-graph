@@ -1,15 +1,15 @@
 public struct AdjacencyListDigraph<ArcType>: Digraph where ArcType: ArcProtocol {
-    var outgoingArcsForNode: [ArcType.Node: [ArcType]]
-    var incomingArcsForNode: [ArcType.Node: [ArcType]]
+    public private(set) var outgoingArcs: [ArcType.Node: [ArcType]]
+    public private(set) var incomingArcs: [ArcType.Node: [ArcType]]
 
     public init() {
-        self.outgoingArcsForNode = [:]
-        self.incomingArcsForNode = [:]
+        self.outgoingArcs = [:]
+        self.incomingArcs = [:]
     }
 
     public mutating func insert(_ arc: ArcType) {
-        outgoingArcsForNode[arc.from, default: []].append(arc)
-        incomingArcsForNode[arc.to, default: []].append(arc)
+        outgoingArcs[arc.from, default: []].append(arc)
+        incomingArcs[arc.to, default: []].append(arc)
     }
 
     public var arcs: [ArcType] {
@@ -17,10 +17,15 @@ public struct AdjacencyListDigraph<ArcType>: Digraph where ArcType: ArcProtocol 
     }
 
     public func outgoingArcs(from node: ArcType.Node) -> [ArcType]? {
-        return outgoingArcsForNode[node]
+        return outgoingArcs[node]
     }
 
     public func incomingArcs(to node: ArcType.Node) -> [ArcType]? {
-        return incomingArcsForNode[node]
+        return incomingArcs[node]
+    }
+
+    public var nodeCount: Int {
+        // TODO: temp workaround, how to get the nodeCount?
+        return incomingArcs.count + outgoingArcs.count
     }
 }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Graph
 
-public struct Arc: ArcProtocol {
+fileprivate struct Arc: ArcProtocol {
     public let from: Int
     public let to: Int
     public let weight: Double
