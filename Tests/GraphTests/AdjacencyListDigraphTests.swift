@@ -7,7 +7,7 @@ public struct Arc: ArcProtocol {
     public let weight: Double
 }
 
-fileprivate typealias Graph = ListDigraph<Arc>
+fileprivate typealias Graph = AdjacencyListDigraph<Arc>
 
 class ListDigraphTests: XCTestCase {
     override func setUp() {
@@ -26,8 +26,14 @@ class ListDigraphTests: XCTestCase {
         g.insert(arc: Arc(source: 1, target: 2, weight: 0.6))
         g.insert(arc: Arc(source: 1, target: 3, weight: 0.9))
         g.insert(arc: Arc(source: 2, target: 3, weight: 1.2))
+        g.insert(arc: Arc(source: 1, target: 1, weight: 3.4))
 
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertEqual(g.outgoingArcs(from: 1)?.count, 3)
+        XCTAssertEqual(g.outgoingArcs(from: 2)?.count, 1)
+        XCTAssertNil(g.outgoingArcs(from: 3))
+
+        XCTAssertEqual(g.incomingArcs(to: 1)?.count, 1)
+        XCTAssertEqual(g.incomingArcs(to: 2)?.count, 1)
+        XCTAssertEqual(g.incomingArcs(to: 3)?.count, 2)
     }
 }

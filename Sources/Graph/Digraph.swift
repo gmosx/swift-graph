@@ -3,4 +3,7 @@ public protocol Digraph {
 
     mutating func insert(arc: ArcType)
     var arcs: [ArcType] { get } // TODO: make Set
+    
+    func outgoingArcs(from node: ArcType.Node) -> [ArcType]?
+    func incomingArcs(to node: ArcType.Node) -> [ArcType]?
 }
