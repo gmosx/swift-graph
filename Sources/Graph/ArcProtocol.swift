@@ -11,6 +11,6 @@
 public protocol ArcProtocol {
     associatedtype Node: Hashable
 
-    var source: Node { get }
-    var target: Node { get }
+    var from: Node { get }
+    var to: Node { get }
 }

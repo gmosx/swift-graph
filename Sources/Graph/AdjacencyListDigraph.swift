@@ -7,9 +7,9 @@ public struct AdjacencyListDigraph<ArcType>: Digraph where ArcType: ArcProtocol 
         self.incomingArcsForNode = [:]
     }
 
-    public mutating func insert(arc: ArcType) {
-        outgoingArcsForNode[arc.source, default: []].append(arc)
-        incomingArcsForNode[arc.target, default: []].append(arc)
+    public mutating func insert(_ arc: ArcType) {
+        outgoingArcsForNode[arc.from, default: []].append(arc)
+        incomingArcsForNode[arc.to, default: []].append(arc)
     }
 
     public var arcs: [ArcType] {
