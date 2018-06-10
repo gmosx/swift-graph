@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Collections",
+        "repositoryURL": "https://github.com/reizu/swift-collections.git",
+        "state": {
+          "branch": "master",
+          "revision": "7e162054f5a514b65e9516321977c835ee316063",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
