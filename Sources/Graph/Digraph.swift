@@ -14,10 +14,12 @@ public protocol Digraph {
     var adjacentArcs: [ArcType.Node: AdjacentArcs<ArcType>] { get }
 
     mutating func insert(_ arc: ArcType)
-    var arcs: [ArcType] { get } // TODO: make Set
+    var arcs: [ArcType] { get }
+    var arcCount: Int { get }
 
     func outgoingArcs(from node: ArcType.Node) -> [ArcType]?
     func incomingArcs(to node: ArcType.Node) -> [ArcType]?
 
+    var nodes: [ArcType.Node] { get }
     var nodeCount: Int { get }
 }

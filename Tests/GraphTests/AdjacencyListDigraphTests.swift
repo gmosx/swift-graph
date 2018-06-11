@@ -25,5 +25,11 @@ class ListDigraphTests: XCTestCase {
         XCTAssertEqual(g.incomingArcs(to: 1)?.count, 1)
         XCTAssertEqual(g.incomingArcs(to: 2)?.count, 1)
         XCTAssertEqual(g.incomingArcs(to: 3)?.count, 2)
+
+        XCTAssertEqual(g.arcs.count, 4)
+        XCTAssertEqual(g.arcCount, 4)
+
+        XCTAssertEqual(g.nodes.count, 3)
+        XCTAssertEqual(g.nodes[0] + g.nodes[1] + g.nodes[2], 6)
     }
 }
