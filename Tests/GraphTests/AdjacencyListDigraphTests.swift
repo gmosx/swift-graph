@@ -20,7 +20,7 @@ class ListDigraphTests: XCTestCase {
 
         XCTAssertEqual(g.outgoingArcs(from: 1)?.count, 3)
         XCTAssertEqual(g.outgoingArcs(from: 2)?.count, 1)
-        XCTAssertNil(g.outgoingArcs(from: 3))
+        XCTAssertEqual(g.outgoingArcs(from: 3)?.count, 0)
 
         XCTAssertEqual(g.incomingArcs(to: 1)?.count, 1)
         XCTAssertEqual(g.incomingArcs(to: 2)?.count, 1)

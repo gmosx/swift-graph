@@ -32,8 +32,8 @@ public struct BellmanFord<Graph> where Graph: Digraph, Graph.ArcType.Node == Int
         // visiting already processed nodes.
 
         for _ in 1..<graph.nodeCount {
-            for (_, arcs) in graph.outgoingArcs {
-                for arc in arcs {
+            for (_, adjacentArcs) in graph.adjacentArcs {
+                for arc in adjacentArcs.outgoingArcs {
                     relax(arc: arc)
                 }
             }
@@ -55,8 +55,8 @@ public struct BellmanFord<Graph> where Graph: Digraph, Graph.ArcType.Node == Int
     }
 
     public var hasNegativeCycle: Bool {
-        for (node, arcs) in graph.outgoingArcs {
-            for arc in arcs {
+        for (node, adjacentArcs) in graph.adjacentArcs {
+            for arc in adjacentArcs.outgoingArcs {
                 if costs[node] + arc.cost < costs[arc.to] {
                     return true
                 }
