@@ -6,6 +6,8 @@
 // TODO: specialized BellmanFord for Node == Int
 // TODO: try to avoid nodes and nodeCount
 // TODO: pass nodeCount?
+// TODO: consider passing KeyPath to the cost member
+// TODO: just a simple implementation, need to imnplement properly at some point.
 
 public protocol HasCost {
     var cost: Double { get }
@@ -54,6 +56,22 @@ public struct BellmanFord<Graph> where Graph: Digraph, Graph.ArcType.Node == Int
         return costs[node]
     }
 
+    public func hasPath(to node: Node) -> Bool {
+        return predecessors[node] != nil
+    }
+
+    public func path(to node: Node) -> [Graph.ArcType]? {
+        if let predecessor = predecessors[node] {
+            if let currentPath = path(to: predecessor) {
+                return currentPath + graph.incomingArcs(to: node)!
+            } else {
+                return graph.incomingArcs(to: node)
+            }
+        } else {
+            return nil
+        }
+    }
+
     public var hasNegativeCycle: Bool {
         for (node, adjacentArcs) in graph.adjacentArcs {
             for arc in adjacentArcs.outgoingArcs {
@@ -67,6 +85,34 @@ public struct BellmanFord<Graph> where Graph: Digraph, Graph.ArcType.Node == Int
     }
 
     public var negativeCycle: [Node]? {
-        return []
+        for node in 0..<graph.nodeCount {
+            for arc in graph.outgoingArcs(from: node)! {
+                let target = arc.to
+                let cost = arc.cost
+                if costs[node] + cost < costs[target] {
+                    // Negative-weight cycle detected, walk the predecessors
+                    // to build the cycle path.
+                    return walkCycle(node: target, cycle: [target])
+                }
+            }
+        }
+
+        return nil
+    }
+
+    func walkCycle(node: Node, cycle: [Node]) -> [Node] {
+        if let predecessor = predecessors[node] {
+            if cycle.contains(predecessor) {
+                var nextCycle = cycle
+                nextCycle.append(node)
+                return nextCycle
+            } else {
+                var nextCycle = walkCycle(node: predecessor, cycle: cycle)
+                nextCycle.append(node)
+                return nextCycle
+            }
+        } else {
+            return cycle
+        }
     }
 }

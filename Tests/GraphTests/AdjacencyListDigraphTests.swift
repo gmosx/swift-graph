@@ -9,7 +9,7 @@ fileprivate struct Arc: ArcProtocol {
 
 fileprivate typealias Graph = AdjacencyListDigraph<Arc>
 
-class ListDigraphTests: XCTestCase {
+class AdjacencyListDigraphTests: XCTestCase {
     func testExample() {
         var g = Graph()
 
